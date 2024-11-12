@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Page - Fruit & Vegetable Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding-top: 50px;
+        }
+
+        .order-container {
+            background-color: white;
+            padding: 30px;
+            width: 100%;
+            max-width: 1100px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 400px; /* Set a fixed height for all cards */
+        }
+
+        /* Ensure all product images have the same size */
+        .product-card img {
+            width: 100%;
+            height: 200px; /* Fixed height to maintain uniformity */
+            object-fit: cover; /* Maintain aspect ratio without stretching */
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .product-card h3 {
+            font-size: 1.2em;
+            margin: 15px 0;
+        }
+
+        .product-card p {
+            font-size: 1em;
+            color: #4CAF50;
+            margin: 15px 0;
+        }
+
+        .quantity-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .product-card input {
+            width: 50px;
+            padding: 5px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .product-card button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .product-card button:hover {
+            background-color: #45a049;
+        }
+
+        .order-summary {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-summary h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .order-summary table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .order-summary table th,
+        .order-summary table td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .order-summary table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .order-summary table td {
+            border-top: 1px solid #ddd;
+        }
+
+        .order-summary .total {
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .checkout-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .checkout-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="order-container">
+        <h2>Order Your Favorite Fruits & Vegetables</h2>
+
+        <!-- Product List -->
+        <div class="product-list">
+            <!-- Apple -->
+            <div class="product-card">
+                <img src="apple.jpg" alt="Apple">
+                <h3>Apple</h3>
+                <p>$1.99 each</p>
+                <div class="quantity-controls">
+                    <input type="number" value="0" min="0" id="apple-quantity" placeholder="Qty">
+                    <button onclick="increaseQuantity('apple-quantity')">+</button>
+                </div>
+                <button onclick="addToCart('Apple', 1.99, document.getElementById('apple-quantity').value)">Add to Cart</button>
+            </div>
+
+            <!-- Banana -->
+            <div class="product-card">
+                <img src="banana.jpg" alt="Banana">
+                <h3>Banana</h3>
+                <p>$0.99 each</p>
+                <div class="quantity-controls">
+                    <input type="number" value="0" min="0" id="banana-quantity" placeholder="Qty">
+                    <button onclick="increaseQuantity('banana-quantity')">+</button>
+                </div>
+                <button onclick="addToCart('Banana', 0.99, document.getElementById('banana-quantity').value)">Add to Cart</button>
+            </div>
+
+            <!-- Carrot -->
+            <div class="product-card">
+                <img src="carrot.jpg" alt="Carrot">
+                <h3>Carrot</h3>
+                <p>$0.89 each</p>
+                <div class="quantity-controls">
+                    <input type="number" value="0" min="0" id="carrot-quantity" placeholder="Qty">
+                    <button onclick="increaseQuantity('carrot-quantity')">+</button>
+                </div>
+                <button onclick="addToCart('Carrot', 0.89, document.getElementById('carrot-quantity').value)">Add to Cart</button>
+            </div>
+
+            <!-- Orange -->
+            <div class="product-card">
+                <img src="orange.jpg" alt="Orange">
+                <h3>Orange</h3>
+                <p>$1.49 each</p>
+                <div class="quantity-controls">
+                    <input type="number" value="0" min="0" id="orange-quantity" placeholder="Qty">
+                    <button onclick="increaseQuantity('orange-quantity')">+</button>
+                </div>
+                <button onclick="addToCart('Orange', 1.49, document.getElementById('orange-quantity').value)">Add to Cart</button>
+            </div>
+
+            <!-- Potato -->
+            <div class="product-card">
+                <img src="potato.jpg" alt="Potato">
+                <h3>Potato</h3>
+                <p>$1.55 each</p>
+                <div class="quantity-controls">
+                    <input type="number" value="0" min="0" id="potato-quantity" placeholder="Qty">
+                    <button onclick="increaseQuantity('potato-quantity')">+</button>
+                </div>
+                <button onclick="addToCart('Potato', 1.55, document.getElementById('potato-quantity').value)">Add to Cart</button>
+            </div>
+
+            <!-- Guava -->
+            <div class="product-card">
+                <img src="guava.jpg" alt="Guava">
+                <h3>Guava</h3>
+                <p>$2.49 each</p>
+                <div class="quantity-controls">
+                    <input type="number" value="0" min="0" id="guava-quantity" placeholder="Qty">
+                    <button onclick="increaseQuantity('guava-quantity')">+</button>
+                </div>
+                <button onclick="addToCart('Guava', 2.49, document.getElementById('guava-quantity').value)">Add to Cart</button>
+            </div>
+
+            <!-- Strawberry -->
+            <div class="product-card">
+                <img src="strawberry.jpg" alt="Strawberry">
+                <h3>Strawberry</h3>
+                <p>$2.31 each</p>
+                <div class="quantity-controls">
+                    <input type="number" value="0" min="0" id="strawberry-quantity" placeholder="Qty">
+                    <button onclick="increaseQuantity('strawberry-quantity')">+</button>
+                </div>
+                <button onclick="addToCart('Strawberry', 2.31, document.getElementById('strawberry-quantity').value)">Add to Cart</button>
+            </div>
+
+            <!-- Onion -->
+            <div class="product-card">
+                <img src="onion.jpg" alt="Onion">
+                <h3>Onion</h3>
+                <p>$2.49 each</p>
+                <div class="quantity-controls">
+                    <input type="number" value="0" min="0" id="onion-quantity" placeholder="Qty">
+                    <button onclick="increaseQuantity('onion-quantity')">+</button>
+                </div>
+                <button onclick="addToCart('Onion', 2.49, document.getElementById('onion-quantity').value)">Add to Cart</button>
+            </div>
+
+            <!-- Pineapple -->
+            <div class="product-card">
+                <img src="pineapple.jpg" alt="Pineapple">
+                <h3>Pineapple</h3>
+                <p>$2.49 each</p>
+                <div class="quantity-controls">
+                    <input type="number" value="0" min="0" id="pineapple-quantity" placeholder="Qty">
+                    <button onclick="increaseQuantity('pineapple-quantity')">+</button>
+                </div>
+                <button onclick="addToCart('Pineapple', 2.49, document.getElementById('pineapple-quantity').value)">Add to Cart</button>
+            </div>
+
+            <!-- Beetroot -->
+            <div class="product-card">
+                <img src="beetroot.jpg" alt="Beetroot">
+                <h3>Beetroot</h3>
+                <p>$2.49 each</p>
+                <div class="quantity-controls">
+                    <input type="number" value="0" min="0" id="beetroot-quantity" placeholder="Qty">
+                    <button onclick="increaseQuantity('beetroot-quantity')">+</button>
+                </div>
+                <button onclick="addToCart('Beetroot', 2.49, document.getElementById('beetroot-quantity').value)">Add to Cart</button>
+            </div>
+
+            <!-- Green Grape -->
+            <div class="product-card">
+                <img src="green grape.jpg" alt="Green Grape">
+                <h3>Green Grape</h3>
+                <p>$2.49 each</p>
+                <div class="quantity-controls">
+                    <input type="number" value="0" min="0" id="green-grape-quantity" placeholder="Qty">
+                    <button onclick="increaseQuantity('green-grape-quantity')">+</button>
+                </div>
+                <button onclick="addToCart('Green Grape', 2.49, document.getElementById('green-grape-quantity').value)">Add to Cart</button>
+            </div>
+
+            <!-- Watermelon -->
+            <div class="product-card">
+                <img src="watermelon.jpg" alt="Watermelon">
+                <h3>Watermelon</h3>
+                <p>$2.49 each</p>
+                <div class="quantity-controls">
+                    <input type="number" value="0" min="0" id="watermelon-quantity" placeholder="Qty">
+                    <button onclick="increaseQuantity('watermelon-quantity')">+</button>
+                </div>
+                <button onclick="addToCart('Watermelon', 2.49, document.getElementById('watermelon-quantity').value)">Add to Cart</button>
+            </div>
+
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary">
+            <h3>Your Order Summary</h3>
+            <table id="order-summary-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic content will be added here -->
+                </tbody>
+            </table>
+
+            <div class="total">
+                Total: $<span id="order-total">0.00</span>
+            </div>
+
+            <!-- Checkout Button -->
+            <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to add items to the cart
+        let cart = [];
+
+        function addToCart(item, price, quantity) {
+            quantity = parseInt(quantity);
+
+            if (quantity > 0) {
+                let found = false;
+
+                // Check if item already exists in cart
+                for (let i = 0; i < cart.length; i++) {
+                    if (cart[i].item === item) {
+                        cart[i].quantity += quantity;
+                        cart[i].total = cart[i].quantity * cart[i].price;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    cart.push({ item: item, price: price, quantity: quantity, total: price * quantity });
+                }
+
+                // Update cart summary
+                updateCart();
+            } else {
+                alert("Please enter a valid quantity");
+            }
+        }
+
+        // Function to update the cart and order summary
+        function updateCart() {
+            let tableBody = document.querySelector("#order-summary-table tbody");
+            tableBody.innerHTML = ""; // Clear current table rows
+
+            let totalAmount = 0;
+
+            // Add cart items to the order summary table
+            cart.forEach(function (item) {
+                let row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${item.item}</td>
+                    <td>$${item.price.toFixed(2)}</td>
+                    <td>${item.quantity}</td>
+                    <td>$${item.total.toFixed(2)}</td>
+                `;
+                tableBody.appendChild(row);
+
+                totalAmount += item.total;
+            });
+
+            // Update total
+            document.getElementById("order-total").textContent = totalAmount.toFixed(2);
+        }
+
+        // Function to increase the quantity value
+        function increaseQuantity(id) {
+            let inputField = document.getElementById(id);
+            let currentValue = parseInt(inputField.value);
+            inputField.value = currentValue + 1;
+        }
+
+        // Function to handle checkout
+        function checkout() {
+            if (cart.length > 0) {
+                alert("Proceeding to checkout...");
+                // Here you can redirect to a checkout page or display more options
+                window.location.href = "checkout.html"; // Change this to your actual checkout page URL
+            } else {
+                alert("Your cart is empty. Please add items to the cart.");
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Shop - User Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <header>
+            <h1>Welcome to the Fruit Shop Dashboard</h1>
+            
+            <!-- Three Dots Button (Ellipsis) -->
+            <div class="dropdown">
+                <button class="dropdown-btn">&#x22EE;</button> <!-- Ellipsis (three dots) -->
+                <div class="dropdown-content">
+                    <a href="profile.html">Account Settings</a>
+                    
+                    <a href="orders.html">My Orders</a>
+                    <a href="register.html">Logout</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Main Content -->
+        <section class="content">
+            <h2>Browse Our Fruit Selection</h2>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" id="search-bar" placeholder="Search fruits..." oninput="searchItems()">
+            </div>
+
+            <div class="item-grid" id="item-grid">
+                <!-- Item 1 -->
+                <div class="item-card">
+                    <img src="apple.jpg" alt="Apple">
+                    <h3>Apple</h3>
+                    <p>Freshly picked apples, sweet and crunchy.</p>
+                    <p class="price">price=$2.00</p>
+                    
+                </div>
+                <!-- Item 2 -->
+                <div class="item-card">
+                    <img src="banana.jpg" alt="Banana">
+                    <h3>Banana</h3>
+                    <p>Rich in potassium and perfect for smoothies.</p>
+                    <p class="price">price=$1.50</p>
+                    
+                </div>
+                <!-- Item 3 -->
+                <div class="item-card">
+                    <img src="orange.jpg" alt="Orange">
+                    <h3>Orange</h3>
+                    <p>Juicy and full of vitamin C.</p>
+                    <p class="price">price=$1.80</p>
+                    
+                </div>
+                <!-- Item 4 -->
+                <div class="item-card">
+                    <img src="green grape.jpg" alt="Grapes">
+                    <h3>Grapes</h3>
+                    <p>Sweet and perfect for snacking or salads.</p>
+                    <p class="price">price=$3.00</p>
+                    
+                </div>
+                <!-- Additional Items -->
+                <div class="item-card">
+                    <img src="watermelon.jpg" alt="Watermelon">
+                    <h3>Watermelon</h3>
+                    <p>Sweet and refreshing, perfect for summer.</p>
+                    <p class="price">price=$4.00</p>
+                    
+                </div>
+                <div class="item-card">
+                    <img src="carrot.jpg" alt="Carrot">
+                    <h3>Carrot</h3>
+                    <p>Rich in beta-carotene, perfect for snacking.</p>
+                    <p class="price">price=$1.20</p>
+                    
+                </div>
+                <div class="item-card">
+                    <img src="potato.jpg" alt="Potato">
+                    <h3>Potato</h3>
+                    <p>Versatile and delicious, great for any dish.</p>
+                    <p class="price">price=$0.80</p>
+                    
+                </div>
+                <div class="item-card">
+                    <img src="beetroot.jpg" alt="Beetroot">
+                    <h3>Beetroot</h3>
+                    <p>Great for juices or salads, rich in nutrients.</p>
+                    <p class="price">price=$2.50</p>
+                    
+                </div>
+                <div class="item-card">
+                    <img src="onion.jpg" alt="Onion">
+                    <h3>Onion</h3>
+                    <p>Fresh, juicy, and perfect for desserts.</p>
+                    <p class="price">price=$1.00</p>
+                    
+                </div>
+                <div class="item-card">
+                    <img src="strawberry.jpg" alt="Strawberry">
+                    <h3>Strawberry</h3>
+                    <p>Sweet and tart, ideal for smoothies.</p>
+                    <p class="price">price=$3.50</p>
+                    
+                </div>
+                <div class="item-card">
+                    <img src="guava.jpg" alt="Guava">
+                    <h3>Guava</h3>
+                    <p>Rich in Vitamin C and perfect for snacking.</p>
+                    <p class="price"> price=$2.80</p>
+                    
+                </div>
+                <div class="item-card">
+                    <img src="pineapple.jpg" alt="pineapple">
+                    <h3>pineapple</h3>
+                    <p>Rich in Vitamin C and perfect for snacking.</p>
+                    <p class="price">price=$2.80</p>
+                    
+                </div> 
+                
+                <div class="order-btn-container">
+                    <a href="orders.html" class="btn green-btn">Make Orders</a>
+                </div>
+            
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2024 Fruit Shop - All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <script>
+        // Search function
+        function searchItems() {
+            var input = document.getElementById("search-bar").value.toLowerCase();
+            var itemGrid = document.getElementById("item-grid");
+            var items = itemGrid.getElementsByClassName("item-card");
+
+            for (var i = 0; i < items.length; i++) {
+                var title = items[i].getElementsByTagName("h3")[0].textContent.toLowerCase();
+                if (title.includes(input)) {
+                    items[i].style.display = "block";
+                } else {
+                    items[i].style.display = "none";
+                }
+            }
+        }
+
+        // Function to add item to cart
+        function addToCart(item) {
+            // Get the cart from localStorage, or create an empty array if it doesn't exist
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Check if item already exists in the cart
+            const existingItem = cart.find(cartItem => cartItem.name === item.name);
+
+            if (existingItem) {
+                // If item exists, increase the quantity
+                existingItem.quantity += 1;
+            } else {
+                
+                cart.push({ ...item, quantity: 1 });
+            }
+
+           
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            
+            alert(item.name + " has been added to your cart!");
+        }
+
+       
+        const addToCartButtons = document.querySelectorAll('.btn.green-btn');
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                
+                const itemCard = event.target.closest('.item-card');
+                const itemName = itemCard.querySelector('h3').textContent;
+                const itemDescription = itemCard.querySelector('p').textContent;
+                const itemImage = itemCard.querySelector('img').src;
+                const itemPrice = itemCard.querySelector('.price').textContent.replace('$', '');
+
+                // Create an item object
+                const item = {
+                    name: itemName,
+                    description: itemDescription,
+                    image: itemImage,
+                    price: parseFloat(itemPrice)
+                };
+
+                // Call addToCart function with the item
+                addToCart(item);
+            });
+        });
+    </script>
+
+</body>
+<style>
+    body {
+        background-image: url('images/shopping.jpg');
+        background-size: cover; /* Make the image cover the entire page */
+        background-position: center; /* Center the image */
+        background-repeat: no-repeat; /* Don't repeat the image */
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        height: 100vh; /* Make sure the body takes up the full viewport height */
+    }
+
+    /* General Reset and Body Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    color:whitesmoke;
+}
+
+/* Header Styling */
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+/* Three Dots Button (Ellipsis) Styling */
+.dropdown {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.dropdown-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+.order-btn-container{
+    flex-grow: 1; 
+    text-align:center;
+    position:absolute;
+   padding-top: 99%;
+
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    min-width: 150px;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 1.1em;
+}
+
+.dropdown-content a:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Dashboard Main Content */
+.content {
+    padding: 20px;
+    text-align: center;
+}
+
+.content h2 {
+    font-size: 2.2em;
+    margin-bottom: 20px;
+}
+
+/* Search Bar Styling */
+.search-container {
+    margin-bottom: 20px;
+}
+
+#search-bar {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#search-bar:focus {
+    border-color: #4CAF50;
+}
+
+/* Item Grid Layout */
+.item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    margin-top: 20px;
+}
+
+/* Item Card Styling */
+.item-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+}
+
+/* Set all images to have the same size */
+.item-card img {
+    width: 100%;
+    height: 200px;  /* Fixed height for all images */
+    object-fit: cover;  /* Ensures images cover the area without distortion */
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.item-card h3 {
+    font-size: 1.5em;
+    color: #333;
+}
+
+.item-card p {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.price {
+    font-size: 1.2em;
+    color: #4CAF50;
+    margin-bottom: 15px;
+}
+
+/* Button Styling */
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 50px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    .item-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .item-card {
+        padding: 15px;
+    }
+}
+
+</style>
+
+
+<style>
+    /* General Reset and Body Styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    /* Dashboard Container */
+    .dashboard-container {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    /* Header Styling */
+    header {
+        background-color: #4CAF50;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        position: relative;
+    }
+
+    /* Three Dots Button (Ellipsis) Styling */
+    .dropdown {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    .dropdown-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 30px;
+        right: 0;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        min-width: 150px;
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        font-size: 1.1em;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* Dashboard Main Content */
+    .content {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .content h2 {
+        font-size: 2.2em;
+        margin-bottom: 20px;
+    }
+
+    /* Search Bar Styling */
+    .search-container {
+        margin-bottom: 20px;
+    }
+
+    #search-bar {
+        width: 100%;
+        max-width: 400px;
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    #search-bar:focus {
+        border-color: #4CAF50;
+    }
+
+    /* Item Grid Layout */
+    .item-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        justify-items: center;
+        margin-top: 20px;
+    }
+
+    /* Item Card Styling */
+    .item-card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+
+    .item-card img {
+        width: 100%;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+
+    .item-card h3 {
+        font-size: 1.5em;
+        color: #333;
+    }
+
+    .item-card p {
+        font-size: 1em;
+        color: #666;
+        margin-bottom: 15px;
+    }
+
+    .price {
+        font-size: 1.2em;
+        color: #4CAF50;
+        margin-bottom: 15px;
+    }
+
+    /* Button Styling */
+    .btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1.1em;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #45a049;
+    }
+
+    /* Footer Styling */
+    footer {
+        background-color: #4CAF50;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        margin-top: 50px;
+        
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        header h1 {
+            font-size: 2em;
+        }
+
+        .item-grid {
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        }
+
+        .item-card {
+            padding: 15px;
+        }
+    }
+    /* Item Grid Layout - Three Images Per Row */
+.item-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Ensures 3 items per row */
+    gap: 20px;
+    justify-items: center;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    /* 3 items per row on larger tablets and smaller screens */
+    .item-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    /* 3 items per row on smaller devices, ensuring consistency */
+    .item-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+</style>
+
+</html>

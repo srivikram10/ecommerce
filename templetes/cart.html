@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="cart">
+        <h2>Your Cart</h2>
+
+        <!-- Cart Table -->
+        <table id="cart-table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Cart items will be inserted here dynamically -->
+            </tbody>
+        </table>
+
+        <!-- Checkout Section -->
+        <div class="checkout">
+            <h3>Checkout</h3>
+
+            <!-- Delivery Address Selection -->
+            <label for="delivery-address">Select Delivery Address:</label>
+            <select id="delivery-address">
+                <option>Default Address (Registered)</option>
+                <option>New Address</option>
+            </select>
+
+            <!-- Payment Method Selection -->
+            <label for="payment-method">Payment Method:</label>
+            <select id="payment-method">
+                <option>Cash on Delivery</option>
+                <option>Credit Card</option>
+                <option>PayPal</option>
+            </select>
+
+            <!-- Place Order Button -->
+            <button id="place-order">Place Order</button>
+        </div>
+    </div>
+
+    <script src="product.js"></script>
+</body>
+<style>
+    /* Cart Section */
+.cart {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    width: 80%;
+    max-width: 1000px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+td {
+    font-size: 1.1em;
+}
+
+/* Checkout Section Styling */
+.checkout {
+    margin-top: 30px;
+}
+
+.checkout h3 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 1em;
+    margin-bottom: 5px;
+    display: block;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Button Styling */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Remove Button Styling */
+.remove-btn {
+    background-color: #f44336;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.remove-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cart {
+        width: 95%;
+    }
+
+    button {
+        padding: 12px 18px;
+    }
+}
+
+</style>
+
+</html>
